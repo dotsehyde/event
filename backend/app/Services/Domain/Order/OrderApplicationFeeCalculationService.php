@@ -9,9 +9,11 @@ use HiEvents\Services\Infrastructure\CurrencyConversion\CurrencyConversionClient
 use HiEvents\Values\MoneyValue;
 use Illuminate\Config\Repository;
 
+use function Illuminate\Log\log;
+
 class OrderApplicationFeeCalculationService
 {
-    private const BASE_CURRENCY = 'USD';
+    private const BASE_CURRENCY = 'GHS';
 
     public function __construct(
         private readonly Repository                        $config,
@@ -26,11 +28,8 @@ class OrderApplicationFeeCalculationService
     ): MoneyValue
     {
         $currency = $order->getCurrency();
-        $quantityPurchased = $this->getChargeableQuantityPurchased($order);
+        $quantityPurchased = 1; // $this->getChargeableQuantityPurchased($order);
 
-        if (!$this->config->get('app.saas_mode_enabled')) {
-            return MoneyValue::zero($currency);
-        }
 
         $fixedFee = $this->getConvertedFixedFee($accountConfiguration, $currency);
         $percentageFee = $accountConfiguration->getPercentageApplicationFee();

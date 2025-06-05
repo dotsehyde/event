@@ -1,4 +1,4 @@
-import {publicApi} from "./public-client.ts";
+import { publicApi } from "./public-client.ts";
 import {
     GenericDataResponse,
     GenericPaginatedResponse,
@@ -7,8 +7,8 @@ import {
     QueryFilters,
     StripePaymentIntent
 } from "../types.ts";
-import {api} from "./client.ts";
-import {queryParamsHelper} from "../utilites/queryParamsHelper.ts";
+import { api } from "./client.ts";
+import { queryParamsHelper } from "../utilites/queryParamsHelper.ts";
 
 export interface OrderDetails {
     first_name: string,

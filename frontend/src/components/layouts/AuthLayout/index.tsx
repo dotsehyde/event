@@ -1,9 +1,9 @@
-import {Navigate, Outlet, useLocation} from "react-router";
+import { Navigate, Outlet, useLocation } from "react-router";
 import classes from "./Auth.module.scss";
-import {t} from "@lingui/macro";
-import {useGetMe} from "../../../queries/useGetMe.ts";
-import {PoweredByFooter} from "../../common/PoweredByFooter";
-import {LanguageSwitcher} from "../../common/LanguageSwitcher";
+import { t } from "@lingui/macro";
+import { useGetMe } from "../../../queries/useGetMe.ts";
+import { PoweredByFooter } from "../../common/PoweredByFooter";
+import { LanguageSwitcher } from "../../common/LanguageSwitcher";
 import {
     IconBuildingStore,
     IconChartBar,
@@ -16,12 +16,12 @@ import {
     IconTicket,
     IconWebhook
 } from '@tabler/icons-react';
-import {useMemo} from "react";
+import { useMemo } from "react";
 
 const RegisterFeatures = () => (
     <div className={classes.featureGrid}>
         <div className={classes.feature}>
-            <IconClock size={16} className={classes.checkIcon}/>
+            <IconClock size={16} className={classes.checkIcon} />
             <div className={classes.featureText}>
                 <h3>{t`Setup in Minutes`}</h3>
                 <p>{t`Create and customize your event page instantly`}</p>
@@ -29,7 +29,7 @@ const RegisterFeatures = () => (
         </div>
 
         <div className={classes.feature}>
-            <IconCreditCard size={16} className={classes.checkIcon}/>
+            <IconCreditCard size={16} className={classes.checkIcon} />
             <div className={classes.featureText}>
                 <h3>{t`No Credit Card Required`}</h3>
                 <p>{t`Get started for free, no subscription fees`}</p>
@@ -37,7 +37,7 @@ const RegisterFeatures = () => (
         </div>
 
         <div className={classes.feature}>
-            <IconTicket size={16} className={classes.checkIcon}/>
+            <IconTicket size={16} className={classes.checkIcon} />
             <div className={classes.featureText}>
                 <h3>{t`Sell More Than Tickets`}</h3>
                 <p>{t`Products, merchandise, and flexible pricing options`}</p>
@@ -101,7 +101,7 @@ const GenericFeatures = () => {
                 const Icon = feature.icon;
                 return (
                     <div key={index} className={classes.feature}>
-                        <Icon size={16} className={classes.checkIcon}/>
+                        <Icon size={16} className={classes.checkIcon} />
                         <div className={classes.featureText}>
                             <h3>{feature.title}</h3>
                             <p>{feature.description}</p>
@@ -119,7 +119,7 @@ const AuthLayout = () => {
     const isRegisterPage = location.pathname === '/auth/register';
 
     if (me.isSuccess) {
-        return <Navigate to={'/manage/events'}/>
+        return <Navigate to={'/manage/events'} />
     }
 
     return (
@@ -128,10 +128,10 @@ const AuthLayout = () => {
                 <div className={classes.leftPanel}>
                     <main className={classes.container}>
                         <div className={classes.logo}>
-                            <img src={'/logo-dark.svg'} alt={t`hi.events logo`}/>
+                            <img src={'/logo-dark.svg'} alt={t`hi.events logo`} />
                         </div>
                         <div className={classes.wrapper}>
-                            <Outlet/>
+                            <Outlet />
                             {
                                 /*
                                 * (c) Hi.Events Ltd 2025
@@ -147,10 +147,10 @@ const AuthLayout = () => {
                                 * If you wish to remove this notice, a commercial license is available at: https://hi.events/licensing
                                 */
                             }
-                            <PoweredByFooter/>
                             <div className={classes.languageSwitcher}>
-                                <LanguageSwitcher/>
+                                <LanguageSwitcher />
                             </div>
+                            <PoweredByFooter />
                         </div>
                     </main>
                 </div>
@@ -158,7 +158,7 @@ const AuthLayout = () => {
                 <div className={classes.rightPanel}>
                     <div className={classes.overlay}>
                         <div className={classes.content}>
-                            {isRegisterPage ? <RegisterFeatures/> : <GenericFeatures/>}
+                            {isRegisterPage ? <RegisterFeatures /> : <GenericFeatures />}
                         </div>
                     </div>
                 </div>

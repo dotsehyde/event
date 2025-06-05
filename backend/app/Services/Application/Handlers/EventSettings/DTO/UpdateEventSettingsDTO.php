@@ -107,7 +107,7 @@ class UpdateEventSettingsDTO extends BaseDTO
             hide_getting_started_page: false,
 
             // Payment defaults
-            payment_providers: [PaymentProviders::STRIPE->value],
+            payment_providers: [PaymentProviders::STRIPE->value, PaymentProviders::PAYSTACK->value],
             offline_payment_instructions: null,
 
             // Invoice defaults

@@ -1,21 +1,21 @@
-import {t} from "@lingui/macro";
-import {Button, Card as MantineCard, Checkbox, NumberInput, Paper, Stack, Switch, Text, TextInput} from "@mantine/core";
-import {useForm} from "@mantine/form";
-import {useParams} from "react-router";
-import {useEffect} from "react";
-import {EventSettings, PaymentProvider} from "../../../../../../types.ts";
-import {Card} from "../../../../../common/Card";
-import {showSuccess} from "../../../../../../utilites/notifications.tsx";
-import {useFormErrorResponseHandler} from "../../../../../../hooks/useFormErrorResponseHandler.tsx";
-import {useUpdateEventSettings} from "../../../../../../mutations/useUpdateEventSettings.ts";
-import {useGetEventSettings} from "../../../../../../queries/useGetEventSettings.ts";
-import {HeadingWithDescription} from "../../../../../common/Card/CardHeading";
-import {Editor} from "../../../../../common/Editor";
-import {InputLabelWithHelp} from "../../../../../common/InputLabelWithHelp";
-import {isEmptyHtml} from "../../../../../../utilites/helpers.ts";
+import { t } from "@lingui/macro";
+import { Button, Card as MantineCard, Checkbox, NumberInput, Paper, Stack, Switch, Text, TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useParams } from "react-router";
+import { useEffect } from "react";
+import { EventSettings, PaymentProvider } from "../../../../../../types.ts";
+import { Card } from "../../../../../common/Card";
+import { showSuccess } from "../../../../../../utilites/notifications.tsx";
+import { useFormErrorResponseHandler } from "../../../../../../hooks/useFormErrorResponseHandler.tsx";
+import { useUpdateEventSettings } from "../../../../../../mutations/useUpdateEventSettings.ts";
+import { useGetEventSettings } from "../../../../../../queries/useGetEventSettings.ts";
+import { HeadingWithDescription } from "../../../../../common/Card/CardHeading";
+import { Editor } from "../../../../../common/Editor";
+import { InputLabelWithHelp } from "../../../../../common/InputLabelWithHelp";
+import { isEmptyHtml } from "../../../../../../utilites/helpers.ts";
 
 export const PaymentAndInvoicingSettings = () => {
-    const {eventId} = useParams();
+    const { eventId } = useParams();
     const eventSettingsQuery = useGetEventSettings(eventId);
     const updateMutation = useUpdateEventSettings();
     const form = useForm({
@@ -80,10 +80,15 @@ export const PaymentAndInvoicingSettings = () => {
     };
 
     const paymentOptions = [
+        // {
+        //     value: "STRIPE",
+        //     label: t`Stripe`,
+        //     description: t`Accept credit card payments with Stripe`
+        // },
         {
-            value: "STRIPE",
-            label: t`Stripe`,
-            description: t`Accept credit card payments with Stripe`
+            value: "PAYSTACK",
+            label: t`Paystack`,
+            description: t`Accept credit card payments with Paystack`
         },
         {
             value: "OFFLINE",
@@ -127,7 +132,7 @@ export const PaymentAndInvoicingSettings = () => {
                             )}
 
                             {form.values.payment_providers?.includes("OFFLINE") && (
-                                <Card style={{boxShadow: 'none', marginTop: '20px'}}>
+                                <Card style={{ boxShadow: 'none', marginTop: '20px' }}>
                                     <h4 style={{
                                         marginTop: '5px',
                                         marginBottom: '10px'
@@ -138,18 +143,18 @@ export const PaymentAndInvoicingSettings = () => {
                                             fontWeight: 'normal'
                                         }}>{t`Offline Payments Information`}</h4>
                                         <Text size="sm"
-                                              mt="xs">{t`When offline payments are enabled, users will be able to complete their orders and receive their tickets. Their tickets will clearly indicate the order is not paid, and the check-in tool will notify the check-in staff if an order requires payment.`}</Text>
+                                            mt="xs">{t`When offline payments are enabled, users will be able to complete their orders and receive their tickets. Their tickets will clearly indicate the order is not paid, and the check-in tool will notify the check-in staff if an order requires payment.`}</Text>
                                         <Text size="sm"
-                                              mt="xs">{t`You will have to mark an order as paid manually. This can be done on the manage order page.`}</Text>
+                                            mt="xs">{t`You will have to mark an order as paid manually. This can be done on the manage order page.`}</Text>
                                         <Text size="sm"
-                                              mt="xs">{t`Offline orders are not reflected in event statistics until the order is marked as paid.`}</Text>
+                                            mt="xs">{t`Offline orders are not reflected in event statistics until the order is marked as paid.`}</Text>
                                     </MantineCard>
                                     <Editor
                                         editorType={'simple'}
                                         value={form.values.offline_payment_instructions}
                                         error={form.errors.offline_payment_instructions as string}
                                         label={<InputLabelWithHelp label={t`Offline Payment Instructions`}
-                                                                   helpText={t`This information will be shown on the payment page, order summary page, and order confirmation email.`}/>}
+                                            helpText={t`This information will be shown on the payment page, order summary page, and order confirmation email.`} />}
                                         description={t`Add instructions for offline payments (e.g., bank transfer details, where to send checks, payment deadlines)`}
                                         onChange={(value) => form.setFieldValue('offline_payment_instructions', value)}
                                     />
@@ -157,7 +162,7 @@ export const PaymentAndInvoicingSettings = () => {
                                         label={t`Allow attendees associated with unpaid orders to check in`}
                                         description={t`If enabled, check-in staff can either mark attendees as checked in or mark the order as paid and check in the attendees. If disabled, attendees associated with unpaid orders cannot be checked in.`}
                                         checked={form.values.allow_orders_awaiting_offline_payment_to_check_in}
-                                        {...form.getInputProps('allow_orders_awaiting_offline_payment_to_check_in', {type: 'checkbox'})}
+                                        {...form.getInputProps('allow_orders_awaiting_offline_payment_to_check_in', { type: 'checkbox' })}
                                     />
                                 </Card>
                             )}
@@ -189,12 +194,12 @@ export const PaymentAndInvoicingSettings = () => {
                                         <TextInput
                                             label={t`Document Label`}
                                             description={t`Leave blank to use the default word "Invoice"`}
-                                            placeholder="Invoice"
+                                            placeholder={t`Invoice`}
                                             {...form.getInputProps('invoice_label')}
                                         />
 
                                         <Stack gap="xs">
-                                            <h4 style={{margin: 0}}>{t`Invoice Numbering`}</h4>
+                                            <h4 style={{ margin: 0 }}>{t`Invoice Numbering`}</h4>
                                             <TextInput
                                                 label={t`Number Prefix`}
                                                 description={t`Optional prefix for invoice numbers (e.g., INV-)`}
@@ -211,7 +216,7 @@ export const PaymentAndInvoicingSettings = () => {
                                         </Stack>
 
                                         <Stack gap="xs">
-                                            <h4 style={{margin: 0}}>{t`Payment Terms`}</h4>
+                                            <h4 style={{ margin: 0 }}>{t`Payment Terms`}</h4>
                                             <NumberInput
                                                 label={t`Payment Due Period`}
                                                 description={t`Number of days allowed for payment (leave blank to omit payment terms from invoices)`}
@@ -223,10 +228,10 @@ export const PaymentAndInvoicingSettings = () => {
                                         </Stack>
 
                                         <Stack gap="xs">
-                                            <h4 style={{margin: 0}}>{t`Organization Details`}</h4>
+                                            <h4 style={{ margin: 0 }}>{t`Organization Details`}</h4>
                                             <TextInput
                                                 label={t`Organization Name`}
-                                                placeholder="Your Company Ltd"
+                                                placeholder={t`Your Company Ltd`}
                                                 {...form.getInputProps('organization_name')}
                                             />
 

@@ -28,4 +28,9 @@ class AccountDomainObject extends Generated\AccountDomainObjectAbstract
     {
         $this->configuration = $configuration;
     }
+
+    public function getPaystackAccountId(): int
+    {
+        return $this->getId();
+    }
 }

@@ -1,7 +1,7 @@
 /**
  * @todo - This file needs to be organized better. Split into multiple files.
  */
-import {SupportedLocales} from "./locales.ts";
+import { SupportedLocales } from "./locales.ts";
 
 export type ConfigKeys = 'VITE_FRONTEND_URL'
     | 'VITE_API_URL_CLIENT'
@@ -105,7 +105,7 @@ export interface Image {
 
 export type ImageType = 'EVENT_COVER' | 'EDITOR_IMAGE';
 
-export type PaymentProvider = 'STRIPE' | 'OFFLINE';
+export type PaymentProvider = 'STRIPE' | 'OFFLINE' | 'PAYSTACK';
 
 export interface EventSettings {
     event_id?: IdParam;
@@ -559,8 +559,8 @@ export interface CheckInList {
 export type CheckInListRequest =
     Omit<CheckInList, 'event_id' | 'short_id' | 'id' | 'products' | 'total_attendees' | 'checked_in_attendees' | 'is_expired' | 'is_active'>
     & {
-    product_ids: IdParam[];
-};
+        product_ids: IdParam[];
+    };
 
 export interface QuestionRequestData {
     title: string;
