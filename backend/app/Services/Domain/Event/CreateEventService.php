@@ -141,7 +141,7 @@ class CreateEventService
             'continue_button_text' => __('Continue'),
             'support_email' => $organizer->getEmail(),
 
-            'payment_providers' => [PaymentProviders::STRIPE->value, PaymentProviders::PAYSTACK->value],
+            'payment_providers' => [PaymentProviders::PAYSTACK->value],
             'offline_payment_instructions' => null,
 
             'enable_invoicing' => false,
